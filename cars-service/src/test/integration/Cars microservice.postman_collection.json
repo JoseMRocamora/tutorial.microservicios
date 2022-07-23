@@ -1,0 +1,485 @@
+{
+	"info": {
+		"_postman_id": "e138e1cc-83f8-4c7c-ad6c-8f863846fe4e",
+		"name": "Cars microservice",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13786293"
+	},
+	"item": [
+		{
+			"name": "Create car 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201 CREATED\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"    \r",
+							"    var jsonData = pm.response.json();\r",
+							"    var lastIdCreated = jsonData.id;\r",
+							"    pm.collectionVariables.set(\"lastIdCreated\", lastIdCreated);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"brand\": \"Mercedes\",\r\n    \"model\": \"C320d\",\r\n    \"userId\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{serviceUrl}}/cars",
+					"host": [
+						"{{serviceUrl}}"
+					],
+					"path": [
+						"cars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get car 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{serviceUrl}}/cars/{{lastIdCreated}}",
+					"host": [
+						"{{serviceUrl}}"
+					],
+					"path": [
+						"cars",
+						"{{lastIdCreated}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create car 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201 CREATED\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"    \r",
+							"    var jsonData = pm.response.json();\r",
+							"    var lastIdCreated = jsonData.id;\r",
+							"    pm.collectionVariables.set(\"lastIdCreated\", lastIdCreated);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"brand\": \"BMW\",\r\n    \"model\": \"180i\",\r\n    \"userId\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{serviceUrl}}/cars",
+					"host": [
+						"{{serviceUrl}}"
+					],
+					"path": [
+						"cars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all cars after create",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.length).to.eql(2);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{serviceUrl}}/cars",
+					"host": [
+						"{{serviceUrl}}"
+					],
+					"path": [
+						"cars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create car 3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201 CREATED\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"    \r",
+							"    var jsonData = pm.response.json();\r",
+							"    var lastIdCreated = jsonData.id;\r",
+							"    pm.collectionVariables.set(\"lastIdCreated\", lastIdCreated);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"brand\": \"A-udi\",\r\n    \"model\": \"A3 1.9TDI\",\r\n    \"userId\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{serviceUrl}}/cars",
+					"host": [
+						"{{serviceUrl}}"
+					],
+					"path": [
+						"cars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modifiy car 3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful PUT request NOT_CONTENT. Existing data.\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"\r",
+							"    var urlLastDataModified = pm.collectionVariables.get(\"serviceUrl\") + \"/cars/\" + pm.collectionVariables.get(\"lastIdCreated\");\r",
+							"    pm.sendRequest(urlLastDataModified, function (err, response) {\r",
+							"        pm.expect(err).to.be.null;\r",
+							"        pm.expect(response.text()).to.include(\"Audi\");\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": {{lastIdCreated}},\r\n    \"brand\": \"Audi\",\r\n    \"model\": \"A3 1.9TDI\",\r\n    \"userId\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{serviceUrl}}/cars/{{lastIdCreated}}",
+					"host": [
+						"{{serviceUrl}}"
+					],
+					"path": [
+						"cars",
+						"{{lastIdCreated}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modifiy NOT existing car 30",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Unsuccessful PUT request NOT_FOUND. NOT Existing data.\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var lastIdCreated = pm.collectionVariables.get(\"lastIdCreated\");\r",
+							"lastIdCreated *= 10;\r",
+							"\r",
+							"pm.collectionVariables.set(\"lastIdCreated\", lastIdCreated);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": {{lastIdCreated}},\r\n    \"brand\": \"Audi\",\r\n    \"model\": \"A3 1.9TDI\",\r\n    \"userId\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{serviceUrl}}/cars/{{lastIdCreated}}",
+					"host": [
+						"{{serviceUrl}}"
+					],
+					"path": [
+						"cars",
+						"{{lastIdCreated}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modifiy bike 4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful PUT request CREATED. NOT Existing data.\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"\r",
+							"    var jsonData = pm.response.json();\r",
+							"    var lastIdCreated = jsonData.id;\r",
+							"    pm.collectionVariables.set(\"lastIdCreated\", lastIdCreated);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": -1,\r\n    \"brand\": \"Audi\",\r\n    \"model\": \"A3 1.9TDI\",\r\n    \"userId\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{serviceUrl}}/cars",
+					"host": [
+						"{{serviceUrl}}"
+					],
+					"path": [
+						"cars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete bike 4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{serviceUrl}}/cars/{{lastIdCreated}}",
+					"host": [
+						"{{serviceUrl}}"
+					],
+					"path": [
+						"cars",
+						"{{lastIdCreated}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all cars after delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.length).to.eql(3);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{serviceUrl}}/cars",
+					"host": [
+						"{{serviceUrl}}"
+					],
+					"path": [
+						"cars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get cars by userId 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.length).to.eql(1);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{serviceUrl}}/cars/by-user/1",
+					"host": [
+						"{{serviceUrl}}"
+					],
+					"path": [
+						"cars",
+						"by-user",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "serviceUrl",
+			"value": "http://localhost:8002",
+			"type": "string"
+		},
+		{
+			"key": "lastIdCreated",
+			"value": ""
+		}
+	]
+}

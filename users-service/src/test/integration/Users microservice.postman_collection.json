@@ -1,0 +1,677 @@
+{
+	"info": {
+		"_postman_id": "3a27e40f-887a-42b2-8a2e-5d4321ff9380",
+		"name": "Users microservice",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13786293"
+	},
+	"item": [
+		{
+			"name": "Create user 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201 CREATED\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"    \r",
+							"    var jsonData = pm.response.json();\r",
+							"    var lastIdCreated = jsonData.id;\r",
+							"    pm.collectionVariables.set(\"lastIdCreated\", lastIdCreated);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"John Doe\",\r\n    \"email\": \"john-doe@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{serviceUrl}}/users",
+					"host": [
+						"{{serviceUrl}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{serviceUrl}}/users/{{lastIdCreated}}",
+					"host": [
+						"{{serviceUrl}}"
+					],
+					"path": [
+						"users",
+						"{{lastIdCreated}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create user 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201 CREATED\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"    \r",
+							"    var jsonData = pm.response.json();\r",
+							"    var lastIdCreated = jsonData.id;\r",
+							"    pm.collectionVariables.set(\"lastIdCreated\", lastIdCreated);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Paul Doe\",\r\n    \"email\": \"paul-doe@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{serviceUrl}}/users",
+					"host": [
+						"{{serviceUrl}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all users after create",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.length).to.eql(2);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{serviceUrl}}/users",
+					"host": [
+						"{{serviceUrl}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create user 3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201 CREATED\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"    \r",
+							"    var jsonData = pm.response.json();\r",
+							"    var lastIdCreated = jsonData.id;\r",
+							"    pm.collectionVariables.set(\"lastIdCreated\", lastIdCreated);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Lisa Doe\",\r\n    \"email\": \"lisa@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{serviceUrl}}/users",
+					"host": [
+						"{{serviceUrl}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modifiy user 3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful PUT request NOT_CONTENT. Existing data.\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"\r",
+							"    var urlLastDataModified = pm.collectionVariables.get(\"serviceUrl\") + \"/users/\" + pm.collectionVariables.get(\"lastIdCreated\");\r",
+							"    pm.sendRequest(urlLastDataModified, function (err, response) {\r",
+							"        pm.expect(err).to.be.null;\r",
+							"        pm.expect(response.text()).to.include(\"lisa.doe@gmail.com\");\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": {{lastIdCreated}},\r\n    \"name\": \"Lisa Doe\",\r\n    \"email\": \"lisa.doe@gmail.com\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{serviceUrl}}/users/{{lastIdCreated}}",
+					"host": [
+						"{{serviceUrl}}"
+					],
+					"path": [
+						"users",
+						"{{lastIdCreated}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modifiy NOT existing user 30",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Unsuccessful PUT request NOT_FOUND. NOT Existing data.\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var lastIdCreated = pm.collectionVariables.get(\"lastIdCreated\");\r",
+							"lastIdCreated *= 10;\r",
+							"\r",
+							"pm.collectionVariables.set(\"lastIdCreated\", lastIdCreated);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": {{lastIdCreated}},\r\n    \"name\": \"Lisa Doe\",\r\n    \"email\": \"lisa@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{serviceUrl}}/users/{{lastIdCreated}}",
+					"host": [
+						"{{serviceUrl}}"
+					],
+					"path": [
+						"users",
+						"{{lastIdCreated}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modifiy users 4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful PUT request CREATED. NOT Existing data.\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"\r",
+							"    var jsonData = pm.response.json();\r",
+							"    var lastIdCreated = jsonData.id;\r",
+							"    pm.collectionVariables.set(\"lastIdCreated\", lastIdCreated);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": -1,\r\n    \"name\": \"Peter Doe\",\r\n    \"email\": \"peter-doe@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{serviceUrl}}/users",
+					"host": [
+						"{{serviceUrl}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete user 4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{serviceUrl}}/users/{{lastIdCreated}}",
+					"host": [
+						"{{serviceUrl}}"
+					],
+					"path": [
+						"users",
+						"{{lastIdCreated}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all users after delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.length).to.eql(3);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{serviceUrl}}/users",
+					"host": [
+						"{{serviceUrl}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create car for user 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201 CREATED\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"    \r",
+							"    var jsonData = pm.response.json();\r",
+							"    var lastCarIdCreated = jsonData.id;\r",
+							"\r",
+							"    var urlLastDataModified = pm.collectionVariables.get(\"serviceUrlCars\") + \"/cars/\" + lastCarIdCreated;\r",
+							"    pm.sendRequest(urlLastDataModified, function (err, response) {\r",
+							"        pm.expect(err).to.be.null;\r",
+							"        pm.expect(response.text()).to.include('\"model\":\"C320d\"');\r",
+							"    });\r",
+							"\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"brand\": \"Mercedes\",\r\n    \"model\": \"C320d\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{serviceUrl}}/users/1/cars",
+					"host": [
+						"{{serviceUrl}}"
+					],
+					"path": [
+						"users",
+						"1",
+						"cars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all cars of user 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.length).to.greaterThan(0);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{serviceUrl}}/users/1/cars",
+					"host": [
+						"{{serviceUrl}}"
+					],
+					"path": [
+						"users",
+						"1",
+						"cars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create bike for user 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201 CREATED\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"\r",
+							"    var jsonData = pm.response.json();\r",
+							"    var lastBikeIdCreated = jsonData.id;\r",
+							"    pm.collectionVariables.set(\"lastBikeIdCreated\", lastBikeIdCreated);\r",
+							"\r",
+							"    var urlLastDataModified = pm.collectionVariables.get(\"serviceUrlBikes\") + \"/bikes/\" + lastBikeIdCreated;\r",
+							"    pm.sendRequest(urlLastDataModified, function (err, response) {\r",
+							"        pm.expect(err).to.be.null;\r",
+							"        pm.expect(response.text()).to.include('\"model\":\"CBR 600\"');\r",
+							"    });\r",
+							"\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"brand\": \"Honda\",\r\n    \"model\": \"CBR 600\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{serviceUrl}}/users/1/bikes",
+					"host": [
+						"{{serviceUrl}}"
+					],
+					"path": [
+						"users",
+						"1",
+						"bikes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all bikes of user 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.length).to.greaterThan(0);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{serviceUrl}}/users/1/bikes",
+					"host": [
+						"{{serviceUrl}}"
+					],
+					"path": [
+						"users",
+						"1",
+						"bikes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all vehicles of user 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.cars.length).to.greaterThan(0);\r",
+							"    pm.expect(jsonData.bikes.length).to.greaterThan(0);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{serviceUrl}}/users/1/vehicles",
+					"host": [
+						"{{serviceUrl}}"
+					],
+					"path": [
+						"users",
+						"1",
+						"vehicles"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "serviceUrl",
+			"value": "http://localhost:8001",
+			"type": "string"
+		},
+		{
+			"key": "serviceUrlCars",
+			"value": "http://localhost:8002",
+			"type": "string"
+		},
+		{
+			"key": "serviceUrlBikes",
+			"value": "http://localhost:8003",
+			"type": "string"
+		},
+		{
+			"key": "lastBikeIdCreated",
+			"value": ""
+		},
+		{
+			"key": "lastIdCreated",
+			"value": ""
+		}
+	]
+}
