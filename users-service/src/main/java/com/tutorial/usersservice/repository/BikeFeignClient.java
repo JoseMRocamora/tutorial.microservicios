@@ -4,11 +4,12 @@ import com.tutorial.usersservice.model.Bike;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-@FeignClient(name="bikes-service", url="http://localhost:8003/bikes")
+@FeignClient(name="bikes-service")
 public interface BikeFeignClient {
 
-    @PostMapping
-    public Bike create(@RequestBody Bike bike);
+    @PostMapping("/bikes")
+    Bike create(@RequestBody Bike bike);
 
 }

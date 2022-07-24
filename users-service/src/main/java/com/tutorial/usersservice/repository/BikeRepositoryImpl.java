@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public class BikeRepositoryImpl implements BikeRepository{
 
-    private static final String URL_BIKES_BY_USER = "http://localhost:8003/bikes/by-user/%d";
+    private static final String URL_BIKES_BY_USER = "http://bikes-service/bikes/by-user/%d";
 
     @Autowired
     RestTemplate restTemplate;

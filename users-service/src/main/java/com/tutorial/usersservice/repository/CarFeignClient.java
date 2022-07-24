@@ -4,11 +4,12 @@ import com.tutorial.usersservice.model.Car;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-@FeignClient(name="cars-service", url="http://localhost:8002/cars")
+@FeignClient(name="cars-service")
 public interface CarFeignClient {
 
-    @PostMapping
-    public Car create(@RequestBody Car car);
+    @PostMapping("/cars")
+    Car create(@RequestBody Car car);
 
 }
