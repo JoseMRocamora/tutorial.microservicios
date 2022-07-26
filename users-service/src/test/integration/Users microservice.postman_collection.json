@@ -39,12 +39,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{serviceUrl}}/users",
+					"raw": "{{serviceUrl}}",
 					"host": [
 						"{{serviceUrl}}"
-					],
-					"path": [
-						"users"
 					]
 				}
 			},
@@ -69,12 +66,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{serviceUrl}}/users/{{lastIdCreated}}",
+					"raw": "{{serviceUrl}}/{{lastIdCreated}}",
 					"host": [
 						"{{serviceUrl}}"
 					],
 					"path": [
-						"users",
 						"{{lastIdCreated}}"
 					]
 				}
@@ -113,12 +109,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{serviceUrl}}/users",
+					"raw": "{{serviceUrl}}",
 					"host": [
 						"{{serviceUrl}}"
-					],
-					"path": [
-						"users"
 					]
 				}
 			},
@@ -147,12 +140,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{serviceUrl}}/users",
+					"raw": "{{serviceUrl}}",
 					"host": [
 						"{{serviceUrl}}"
-					],
-					"path": [
-						"users"
 					]
 				}
 			},
@@ -190,12 +180,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{serviceUrl}}/users",
+					"raw": "{{serviceUrl}}",
 					"host": [
 						"{{serviceUrl}}"
-					],
-					"path": [
-						"users"
 					]
 				}
 			},
@@ -211,7 +198,7 @@
 							"pm.test(\"Successful PUT request NOT_CONTENT. Existing data.\", function () {\r",
 							"    pm.response.to.have.status(204);\r",
 							"\r",
-							"    var urlLastDataModified = pm.collectionVariables.get(\"serviceUrl\") + \"/users/\" + pm.collectionVariables.get(\"lastIdCreated\");\r",
+							"    var urlLastDataModified = pm.collectionVariables.get(\"serviceUrl\") + \"/\" + pm.collectionVariables.get(\"lastIdCreated\");\r",
 							"    pm.sendRequest(urlLastDataModified, function (err, response) {\r",
 							"        pm.expect(err).to.be.null;\r",
 							"        pm.expect(response.text()).to.include(\"lisa.doe@gmail.com\");\r",
@@ -237,12 +224,11 @@
 					}
 				},
 				"url": {
-					"raw": "{{serviceUrl}}/users/{{lastIdCreated}}",
+					"raw": "{{serviceUrl}}/{{lastIdCreated}}",
 					"host": [
 						"{{serviceUrl}}"
 					],
 					"path": [
-						"users",
 						"{{lastIdCreated}}"
 					]
 				}
@@ -292,12 +278,11 @@
 					}
 				},
 				"url": {
-					"raw": "{{serviceUrl}}/users/{{lastIdCreated}}",
+					"raw": "{{serviceUrl}}/{{lastIdCreated}}",
 					"host": [
 						"{{serviceUrl}}"
 					],
 					"path": [
-						"users",
 						"{{lastIdCreated}}"
 					]
 				}
@@ -338,12 +323,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{serviceUrl}}/users",
+					"raw": "{{serviceUrl}}",
 					"host": [
 						"{{serviceUrl}}"
-					],
-					"path": [
-						"users"
 					]
 				}
 			},
@@ -368,12 +350,11 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{serviceUrl}}/users/{{lastIdCreated}}",
+					"raw": "{{serviceUrl}}/{{lastIdCreated}}",
 					"host": [
 						"{{serviceUrl}}"
 					],
 					"path": [
-						"users",
 						"{{lastIdCreated}}"
 					]
 				}
@@ -403,12 +384,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{serviceUrl}}/users",
+					"raw": "{{serviceUrl}}",
 					"host": [
 						"{{serviceUrl}}"
-					],
-					"path": [
-						"users"
 					]
 				}
 			},
@@ -427,7 +405,7 @@
 							"    var jsonData = pm.response.json();\r",
 							"    var lastCarIdCreated = jsonData.id;\r",
 							"\r",
-							"    var urlLastDataModified = pm.collectionVariables.get(\"serviceUrlCars\") + \"/cars/\" + lastCarIdCreated;\r",
+							"    var urlLastDataModified = pm.collectionVariables.get(\"serviceUrlCars\") + \"/\" + lastCarIdCreated;\r",
 							"    pm.sendRequest(urlLastDataModified, function (err, response) {\r",
 							"        pm.expect(err).to.be.null;\r",
 							"        pm.expect(response.text()).to.include('\"model\":\"C320d\"');\r",
@@ -453,12 +431,11 @@
 					}
 				},
 				"url": {
-					"raw": "{{serviceUrl}}/users/1/cars",
+					"raw": "{{serviceUrl}}/1/cars",
 					"host": [
 						"{{serviceUrl}}"
 					],
 					"path": [
-						"users",
 						"1",
 						"cars"
 					]
@@ -489,12 +466,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{serviceUrl}}/users/1/cars",
+					"raw": "{{serviceUrl}}/1/cars",
 					"host": [
 						"{{serviceUrl}}"
 					],
 					"path": [
-						"users",
 						"1",
 						"cars"
 					]
@@ -516,7 +492,7 @@
 							"    var lastBikeIdCreated = jsonData.id;\r",
 							"    pm.collectionVariables.set(\"lastBikeIdCreated\", lastBikeIdCreated);\r",
 							"\r",
-							"    var urlLastDataModified = pm.collectionVariables.get(\"serviceUrlBikes\") + \"/bikes/\" + lastBikeIdCreated;\r",
+							"    var urlLastDataModified = pm.collectionVariables.get(\"serviceUrlBikes\") + \"/\" + lastBikeIdCreated;\r",
 							"    pm.sendRequest(urlLastDataModified, function (err, response) {\r",
 							"        pm.expect(err).to.be.null;\r",
 							"        pm.expect(response.text()).to.include('\"model\":\"CBR 600\"');\r",
@@ -542,12 +518,11 @@
 					}
 				},
 				"url": {
-					"raw": "{{serviceUrl}}/users/1/bikes",
+					"raw": "{{serviceUrl}}/1/bikes",
 					"host": [
 						"{{serviceUrl}}"
 					],
 					"path": [
-						"users",
 						"1",
 						"bikes"
 					]
@@ -578,12 +553,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{serviceUrl}}/users/1/bikes",
+					"raw": "{{serviceUrl}}/1/bikes",
 					"host": [
 						"{{serviceUrl}}"
 					],
 					"path": [
-						"users",
 						"1",
 						"bikes"
 					]
@@ -615,12 +589,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{serviceUrl}}/users/1/vehicles",
+					"raw": "{{serviceUrl}}/1/vehicles",
 					"host": [
 						"{{serviceUrl}}"
 					],
 					"path": [
-						"users",
 						"1",
 						"vehicles"
 					]
@@ -652,25 +625,25 @@
 	"variable": [
 		{
 			"key": "serviceUrl",
-			"value": "http://localhost:8001",
+			"value": "http://localhost:8080/users",
 			"type": "string"
 		},
 		{
 			"key": "serviceUrlCars",
-			"value": "http://localhost:8002",
+			"value": "http://localhost:8080/cars",
 			"type": "string"
 		},
 		{
 			"key": "serviceUrlBikes",
-			"value": "http://localhost:8003",
+			"value": "http://localhost:8080/bikes",
 			"type": "string"
 		},
 		{
-			"key": "lastBikeIdCreated",
+			"key": "lastIdCreated",
 			"value": ""
 		},
 		{
-			"key": "lastIdCreated",
+			"key": "lastBikeIdCreated",
 			"value": ""
 		}
 	]
