@@ -1,5 +1,6 @@
 server:
     port: ${PORT:${SERVER_PORT:0}}
+
 eureka:
     client:
         fetch-registry: true
@@ -8,3 +9,20 @@ eureka:
             default-zone: http://localhost:8761/eureka
     instance:
         instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+
+spring:
+    datasource:
+        driverClassName: org.h2.Driver
+        password: password
+        url: jdbc:h2:file:/Temp/usersDB;AUTO_SERVER=TRUE
+        #url: jdbc:h2:mem:bikesDB
+        username: sa
+    h2:
+        console:
+            enabled: true
+            path: /h2-console
+    jpa:
+        database-platform: org.hibernate.dialect.H2Dialect
+        generate-ddl: true
+        hibernate:
+            ddl-auto: update
