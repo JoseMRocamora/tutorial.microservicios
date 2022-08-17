@@ -7,7 +7,7 @@ spring:
         config:
             server:
                 git:
-                    default-label: main
+                    default-label: feature/keycloak
                     uri: https://github.com/JoseMRocamora/tutorial.microservicios
                     search-paths:
                       - config-data
