@@ -37,14 +37,14 @@ spring:
             client:
                 provider:
                     keycloak:
-                        authorizationUri: http://localhost:18080/realms/tutorial.microservicios.realm/protocol/openid-connect/auth
-                        userInfoUri: http://localhost:18080/realms/tutorial.microservicios.realm/protocol/openid-connect/userinfo
+                        authorizationUri: http://localhost:18080/realms/tutorial-microservicios-realm/protocol/openid-connect/auth
+                        userInfoUri: http://localhost:18080/realms/tutorial-microservicios-realm/protocol/openid-connect/userinfo
                         userNameAttribute: preferred_username
-                        tokenUri: http://localhost:18080/realms/tutorial.microservicios.realm/protocol/openid-connect/token
+                        tokenUri: http://localhost:18080/realms/tutorial-microservicios-realm/protocol/openid-connect/token
                 registration:
-                    tutorial.microservicios.client:
+                    tutorial-microservicios-client:
                         provider: keycloak
-                        client-id: tutorial.microservicios.client
+                        client-id: tutorial-microservicios-client
                         client-secret: AXdBWG81Ggof3TsDb20988uA2OIrOtM7
                         authorization-grant-type: authorization_code
-                        redirect-uri: "{baseUrl}/login/oauth2/code/tutorial.microservicios.client"
+                        redirect-uri: "{baseUrl}/login/oauth2/code/tutorial-microservicios-client"
